@@ -18,6 +18,9 @@
  * 5. we create nmea_parser_lib to get data and process necessary action from neo6m_buffer
  *    		actions like determining which sentence we are getting (GGA,RMC,GLL etc)
  *    		presenting time, longitude, latitude, etc in a user readable (usable) format
+ *
+ *
+ * This is just a try to check if program working on git
  */
 
 #include <stdint.h>
