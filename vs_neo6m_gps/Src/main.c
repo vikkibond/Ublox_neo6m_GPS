@@ -52,7 +52,8 @@ int main(void)
 
     while(1)
     {
-    	gps_nmea_update();				//
+    	gps_nmea_update();
+
 
     }
 
