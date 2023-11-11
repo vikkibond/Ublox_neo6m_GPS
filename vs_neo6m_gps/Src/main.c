@@ -41,14 +41,15 @@ int main(void)
 	neo6m_uart_init();
 	neo6m_buffer_init();
 
-	ublox_disable_all_nmea();
-	ublox_enable_nmea_sentence(GGA);
-	ublox_enable_nmea_sentence(RMC);
+	ublox_disable_all_nmea(); 			// disable all default nmea sentence
+
+	ublox_enable_nmea_sentence(GGA);	// enable GGA sentence
+	ublox_enable_nmea_sentence(RMC);	// enable RMC sentence
 
 
     while(1)
     {
-    	gps_nmea_update();
+    	gps_nmea_update();				//
 
     }
 

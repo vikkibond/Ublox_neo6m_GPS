@@ -376,9 +376,9 @@ static uint32_t get_power(uint8_t x, uint8_t y)
 
 void gps_nmea_update(void)
 {
-	while( neo6m_buffer_isempty() );
+	while( neo6m_buffer_isempty() );						// neo6m_buffer function
 
-	gps_nmea_process_delim( neo6m_buffer_get_char() );
+	gps_nmea_process_delim( neo6m_buffer_get_char() );		// nmea_parser_lib and neo6m_buffer function
 
 }
 
