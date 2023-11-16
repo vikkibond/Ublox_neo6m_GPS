@@ -1,6 +1,6 @@
 # Ignore iMac forlder's hidden file .DS_Store
 .DS_Store
-*.pdf
+
 
 #  Ignore build output directories
 Debug/
