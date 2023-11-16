@@ -8,15 +8,16 @@
 #include "uart.h"
 
 
-
 static void uart_set_baudrate(uint32_t periph_clk,uint32_t baudrate);
 static void debug_uart_write(char ch);
+
 
 //int __io_putchar(int ch)
 //{
 //	debug_uart_write(ch);
 //	return ch;
 //}
+
 
 void debug_uart_send(char ch)
 {
@@ -53,7 +54,6 @@ void debug_uart_init(void)
 }
 
 
-
 static void debug_uart_write(char ch)
 {
 	/*Make sure transmit data register is empty*/
@@ -63,10 +63,12 @@ static void debug_uart_write(char ch)
 	USART2->DR =(ch & 0xFF);
 }
 
+
 static uint16_t compute_uart_bd(uint32_t periph_clk,uint32_t baudrate)
 {
 	return((periph_clk + (baudrate/2U))/baudrate);
 }
+
 
 static void uart_set_baudrate(uint32_t periph_clk,uint32_t baudrate)
 {
