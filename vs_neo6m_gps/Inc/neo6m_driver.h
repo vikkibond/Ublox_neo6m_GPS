@@ -3,6 +3,8 @@
  *
  *  Created on: Oct 30, 2023
  *      Author: vikki
+ *
+ *  HELP from [ heezes/ublox github ] https://github.com/heezes/ublox
  */
 
 #ifndef NEO6M_DRIVER_H_
@@ -25,9 +27,10 @@
  * */
 
 
-/****************** NEO6M UART1 and PIN related macros ******************/
+/****************** NEO6M UART1 and PIN related macros and function ******************/
+
 #define UART1_GPIOAEN			( 1U << 0 )
-#define UART1EN			( 1U << 4 )
+#define UART1EN					( 1U << 4 )
 
 #define UART1_CR1_TE			( 1U << 3 )
 #define UART1_CR1_RE			( 1U << 2 )
@@ -41,11 +44,14 @@
 #define NEO6M_UART_BAUDRATE		9600
 
 
+
+
 void neo6m_uart_init(void);
 
 
 
 
+/******************   UBLOX and NMEA related functions   ******************/
 
 typedef struct {
 	uint8_t uBlox_header[2];
@@ -57,6 +63,7 @@ typedef struct {
 	uint8_t ck_a;		// check sum a
 	uint8_t ck_b;		// check sum b
 }ublox_event_t;
+
 
 
 typedef enum {
@@ -85,6 +92,7 @@ typedef enum {
 void ublox_disable_all_nmea(void);
 void ublox_enable_nmea_sentence(ublox_sentence_e nmea);
 
+void ublox_set_message_rate(uint16_t rate_ms);
 
 
 

@@ -145,6 +145,7 @@ Checksum Formula:
 
 const char UBLOX_HEADER[] 	= { 0xB5, 0x62 };		// SYNC Char
 const char CFG_MSG[]		= { 0x06, 0x01 };
+const char CFG_RATE[]		= { 0x06, 0x08 };
 
 
 /*
@@ -204,6 +205,48 @@ static int ublox_send_packet( uint8_t* pkt, int len, int timeout)
 	}
 	return 1;
 }
+
+
+/*
+ *  This function sets the rate of data receive from gps module in millisecond
+ *  It only takes 16-bit (8bit + 8bit) value in Little Endian format.
+ *  Refer to CFG_RATE page.150
+ */
+void ublox_set_message_rate(uint16_t rate_ms)
+{
+	/*
+	 * If 1000 millisecond = 0x03E8 = 0xb 0011 1110 1000
+	 * little endian format  first part  : 	0xE8 	= 	0b 1110 1000
+	 * 						 second part : 	0x03 	= 	0b 0000 0011
+	 */
+	uint8_t rate_ms_0 = rate_ms % 256;			// 1000 % 256 = 232 = 0b 1110 1000
+	uint8_t rate_ms_1 = rate_ms / 256;			// 1000 / 256 = 3	= 0b 0000 0011
+
+	uint8_t packet[] =
+	{
+			UBLOX_HEADER[0],
+			UBLOX_HEADER[1],
+			CFG_RATE[0],
+			CFG_RATE[1],
+			0x06,			// length	(little endian)
+			0x00,			// length
+			rate_ms_0,		// payload 1 - measure rate	(little endian)
+			rate_ms_1,		// payload 2 - measure rate
+			0x01,			// payload 3 - nav rate		(little endian)
+			0x00,			// payload 4 - nav rate
+			0x00,			// payload 5 - time reference	(little endian)
+			0x00,			// payload 6 - time reference
+			0x00,			// CK_A	(temporary check sum first)
+			0x00,			// CK_B	(temporary check sum second)
+	};
+
+	int packet_len	= sizeof(packet);
+	ublox_calculate_checksum(packet, packet_len);
+
+	ublox_send_packet(packet, packet_len, 100);
+
+}
+
 
 
 /*
