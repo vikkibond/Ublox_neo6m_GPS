@@ -45,6 +45,7 @@ int main(void)
 {
 	fpu_enable();
 	debug_uart_init();
+	timebase_init();
 
 	neo6m_uart_init();
 	neo6m_buffer_init();
@@ -61,9 +62,9 @@ int main(void)
 
     while(1)
     {
-    	gps_nmea_update();
+    	//gps_nmea_update();
 
-    	delay(1000);
+    	//delay(1000);
 
     }
 

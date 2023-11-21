@@ -1,6 +1,12 @@
 #ifndef __UART_H__
 #define __UART_H__
 
+ /* MAC serial terminal:
+  *
+  *  $ ls /dev/cu.*  	->   $ screen /dev/cu.usbmodem14103 115200
+  *
+  *  to terminate terminal CTRL + A then CTRL + \
+  */
 
 #include "main.h"
 
